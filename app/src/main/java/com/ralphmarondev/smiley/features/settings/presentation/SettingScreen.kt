@@ -21,13 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ralphmarondev.smiley.core.util.LocalThemeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingScreen(
-    navigateBack: () -> Unit,
-    toggleTheme: () -> Unit
+    navigateBack: () -> Unit
 ) {
+    val themeState = LocalThemeState.current
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,7 +65,9 @@ fun SettingScreen(
             ) {
                 Text(text = "Home Screen")
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = toggleTheme) {
+                Button(onClick = {
+                    themeState.toggleTheme()
+                }) {
                     Text(
                         text = "Toggle theme"
                     )

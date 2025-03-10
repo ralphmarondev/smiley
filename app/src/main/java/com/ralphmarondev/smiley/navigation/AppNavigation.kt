@@ -1,15 +1,12 @@
 package com.ralphmarondev.smiley.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ralphmarondev.smiley.core.data.local.preferences.AppPreferences
+import com.ralphmarondev.smiley.core.util.LocalThemeState
 import com.ralphmarondev.smiley.features.home.presentation.HomeScreen
 import com.ralphmarondev.smiley.features.settings.presentation.SettingScreen
 import com.ralphmarondev.smiley.ui.theme.SmileyTheme
@@ -19,9 +16,14 @@ fun AppNavigation(
     preferences: AppPreferences,
     navController: NavHostController = rememberNavController()
 ) {
-    var darkTheme by remember { mutableStateOf(preferences.isDarkTheme()) }
+    val themeState = LocalThemeState.current
 
-    SmileyTheme(darkTheme = darkTheme) {
+    val startDestination: Any = when (preferences.isFirstLaunch()) {
+        true -> Routes.Onboarding
+        false -> Routes.Home
+    }
+
+    SmileyTheme(darkTheme = themeState.darkTheme.value) {
         NavHost(
             navController = navController,
             startDestination = Routes.Home
@@ -39,10 +41,6 @@ fun AppNavigation(
                 SettingScreen(
                     navigateBack = {
                         navController.navigateUp()
-                    },
-                    toggleTheme = {
-                        darkTheme = !darkTheme
-                        preferences.toggleDarkTheme()
                     }
                 )
             }

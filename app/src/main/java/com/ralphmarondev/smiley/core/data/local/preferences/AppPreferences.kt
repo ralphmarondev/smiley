@@ -28,7 +28,7 @@ class AppPreferences(
         return sharedPreferences.getBoolean(DARK_THEME, false)
     }
 
-    fun toggleDarkTheme() {
+    fun setDarkTheme() {
         sharedPreferences.edit().putBoolean(DARK_THEME, !isDarkTheme()).apply()
     }
 }
