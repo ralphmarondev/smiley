@@ -48,7 +48,7 @@ fun DrawerContent(
                     .padding(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Image(
-                    painter = rememberAsyncImagePainter(R.drawable.ic_launcher_foreground),
+                    painter = rememberAsyncImagePainter(R.drawable.smiley),
                     contentDescription = "Logo",
                     modifier = Modifier
                         .size(200.dp),
