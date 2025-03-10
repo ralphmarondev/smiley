@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.ralphmarondev.smiley.core.data.local.preferences.AppPreferences
+import com.ralphmarondev.smiley.core.notification.requestNotificationPermission
 import com.ralphmarondev.smiley.core.util.ThemeProvider
 import com.ralphmarondev.smiley.core.util.ThemeState
 import com.ralphmarondev.smiley.navigation.AppNavigation
@@ -18,6 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        requestNotificationPermission(activity = this@MainActivity)
         setContent {
             ThemeProvider(themeState = themeState) {
                 AppNavigation(preferences)
